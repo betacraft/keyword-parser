@@ -9,15 +9,21 @@ import (
 // Function is supposed to find out occurences of translated keywords, and later on replace them with original
 // english keywords. This should also be tunable for laungages. This one is using ruby as a target.
 
-func ProcessKeywords(input string, keywords map[string]string) (int, string) {
+func ProcessKeywords(input string, keywords map[string]string, language string) (int, string) {
 	var quotes int
 	var singleQuote int
 	var blockCommentStart int
 	var blockCommentEnd int
 	var keywordsFound int
 	var processedStringBuffer bytes.Buffer
+	var LineCommentString string
+	switch language {
+	case "ruby":
+		LineCommentString = "#" //for ruby
+	default:
+		LineCommentString = "//"
+	}
 
-	LineCommentString := "#" //for ruby
 	lines := strings.Split(input, "\n")
 
 	for _, line := range lines {
