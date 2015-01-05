@@ -1,4 +1,4 @@
-package parser
+package processor
 
 import (
 	"io/ioutil"

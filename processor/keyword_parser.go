@@ -1,8 +1,7 @@
-package parser
+package processor
 
 import (
 	"bytes"
-	"log"
 	"strings"
 )
 
@@ -23,23 +22,18 @@ func ProcessKeywords(input string, keywords map[string]string) (int, string) {
 
 	for _, line := range lines {
 		if strings.HasPrefix(strings.Trim(line, " "), LineCommentString) {
-			log.Println("skip line because commented ", line)
 			processedStringBuffer.WriteString(line + "\n")
 			continue
 		}
-		log.Println("chekcing line ", line)
 		fields := strings.Fields(line)
 		for index, field := range fields {
 			quotes += strings.Count(field, "\"")
 			singleQuote += strings.Count(field, "'")
 			blockCommentStart += strings.Count(field, "/*")
 			blockCommentEnd += strings.Count(field, "*/")
-			log.Println("checking word ", field)
 			if quotes%2 == 0 && singleQuote%2 == 0 && blockCommentStart == blockCommentEnd {
-				log.Println("word without quotes, and comments found")
 				//token is Ok to check for reserved word, as it is not comments or inside a string
 				if keyword := keywords[field]; keyword != "" {
-					log.Println("Keyword found ", field, " for ", keyword)
 					if index == (len(fields) - 1) {
 						processedStringBuffer.WriteString(keyword)
 					} else {
@@ -48,9 +42,6 @@ func ProcessKeywords(input string, keywords map[string]string) (int, string) {
 					keywordsFound += 1
 					continue
 				}
-			} else {
-
-				log.Println("this word in in quotes, or comments")
 			}
 			if index == (len(fields) - 1) {
 				processedStringBuffer.WriteString(field)
