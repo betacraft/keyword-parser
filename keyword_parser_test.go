@@ -11,9 +11,9 @@ func TestProcessKeywords(t *testing.T) {
 	if err != nil {
 		t.Error("Error reading file test.rb ", err.Error())
 	}
-	keywordsFound, processedString := ProcessKeywords(string(bytes), map[string]string{"यासाठी": "for"})
-	if keywordsFound != 1 {
-		t.Error("Keyword found is", keywordsFound, ", instead of 1")
+	keywordsFound, processedString := ProcessKeywords(string(bytes), map[string]string{"यासाठी": "for", "जर": "if", "शेवट": "end", "छाप": "print", "आत": "in"})
+	if keywordsFound != 7 {
+		t.Error("Keyword found is", keywordsFound, ", instead of 7")
 	}
 	log.Println(processedString)
 }
