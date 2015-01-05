@@ -12,7 +12,7 @@
 शिवायजर elseif
 शेवट end
 तजवीज ensure
-असत्य flase
+असत्य false
 यासाठी for
 जर if
 आत in

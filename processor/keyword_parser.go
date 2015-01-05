@@ -47,6 +47,22 @@ func ProcessKeywords(input string, keywords map[string]string, language string) 
 					}
 					keywordsFound += 1
 					continue
+				} else {
+					found := false
+					for k, v := range keywords {
+						if strings.Contains(field, k) {
+							if index == (len(fields) - 1) {
+								processedStringBuffer.WriteString(strings.Replace(field, k, v, 1))
+							} else {
+								processedStringBuffer.WriteString(strings.Replace(field, k, v, 1) + " ")
+							}
+							found = true
+							break
+						}
+					}
+					if found {
+						continue
+					}
 				}
 			}
 			if index == (len(fields) - 1) {
