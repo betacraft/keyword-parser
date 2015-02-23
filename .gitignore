@@ -23,3 +23,5 @@ _testmain.go
 *.test
 *.prof
 parser
+*.sublime-project
+*.Ds_Store

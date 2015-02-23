@@ -3,10 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/RainingClouds/keyword-parser/processor"
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"parser/processor"
 	"strings"
 )
 
