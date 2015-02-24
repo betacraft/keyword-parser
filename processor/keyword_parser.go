@@ -53,11 +53,13 @@ func ProcessKeywords(input string, keywords map[string]string, language string) 
 					for k, v := range keywords {
 						if _, err := strconv.Atoi(v); err == nil {
 							if strings.Contains(field, k) {
-								processedStringBuffer.WriteString(strings.Replace(field, k, v, 0))
+								field = strings.Replace(field, k, v, -1)
+								found = true
 							}
 						}
 					}
 					if found {
+						processedStringBuffer.WriteString(field + " ")
 						continue
 					}
 				}
