@@ -2,6 +2,7 @@ package processor
 
 import (
 	"bytes"
+	"strconv"
 	"strings"
 )
 
@@ -50,14 +51,10 @@ func ProcessKeywords(input string, keywords map[string]string, language string) 
 				} else {
 					found := false
 					for k, v := range keywords {
-						if strings.Contains(field, k) {
-							if index == (len(fields) - 1) {
-								processedStringBuffer.WriteString(strings.Replace(field, k, v, 1))
-							} else {
-								processedStringBuffer.WriteString(strings.Replace(field, k, v, 1) + " ")
+						if _, err := strconv.Atoi(v); err == nil {
+							if strings.Contains(field, k) {
+								processedStringBuffer.WriteString(strings.Replace(field, k, v, 0))
 							}
-							found = true
-							break
 						}
 					}
 					if found {
