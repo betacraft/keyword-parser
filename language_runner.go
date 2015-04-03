@@ -3,10 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/RainingClouds/keyword-parser/processor"
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"parser/processor"
 	"strings"
 )
 
@@ -57,7 +57,8 @@ func main() {
 		return
 	}
 
-	fmt.Println("Going to run translated file - \n ", processedString)
+	//	need to add a debug parameter to commandline
+	//	fmt.Println("Going to run translated file - \n ", processedString)
 
 	out, err := exec.Command("ruby", args[0]+".tmp").CombinedOutput()
 	if err != nil {
