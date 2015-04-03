@@ -2,6 +2,7 @@ package processor
 
 import (
 	"bytes"
+	"strconv"
 	"strings"
 )
 
@@ -17,6 +18,7 @@ func ProcessKeywords(input string, keywords map[string]string, language string) 
 	var keywordsFound int
 	var processedStringBuffer bytes.Buffer
 	var LineCommentString string
+	var classNames []string
 	switch language {
 	case "ruby":
 		LineCommentString = "#" //for ruby
@@ -32,6 +34,7 @@ func ProcessKeywords(input string, keywords map[string]string, language string) 
 			continue
 		}
 		fields := strings.Fields(line)
+		checkForClassName := false
 		for index, field := range fields {
 			quotes += strings.Count(field, "\"")
 			singleQuote += strings.Count(field, "'")
@@ -45,22 +48,29 @@ func ProcessKeywords(input string, keywords map[string]string, language string) 
 					} else {
 						processedStringBuffer.WriteString(keyword + " ")
 					}
+					if keyword == "class" {
+						checkForClassName = true
+					}
 					keywordsFound += 1
 					continue
 				} else {
+					if checkForClassName {
+						classNames = append(classNames, field)
+						checkForClassName = false
+						processedStringBuffer.WriteString(field)
+						continue
+					}
 					found := false
 					for k, v := range keywords {
-						if strings.Contains(field, k) {
-							if index == (len(fields) - 1) {
-								processedStringBuffer.WriteString(strings.Replace(field, k, v, 1))
-							} else {
-								processedStringBuffer.WriteString(strings.Replace(field, k, v, 1) + " ")
+						if _, err := strconv.Atoi(v); err == nil {
+							if strings.Contains(field, k) {
+								field = strings.Replace(field, k, v, -1)
+								found = true
 							}
-							found = true
-							break
 						}
 					}
 					if found {
+						processedStringBuffer.WriteString(field + " ")
 						continue
 					}
 				}
@@ -72,6 +82,13 @@ func ProcessKeywords(input string, keywords map[string]string, language string) 
 			}
 		}
 		processedStringBuffer.WriteString("\n")
+
 	}
-	return keywordsFound, processedStringBuffer.String()
+	processedString := processedStringBuffer.String()
+	if len(classNames) != 0 {
+		for _, v := range classNames {
+			processedString = strings.Replace(processedString, v, "C"+v, -1)
+		}
+	}
+	return keywordsFound, processedString
 }
