@@ -1,5 +1,6 @@
 keyword-parser
 ==============
+[![Build Status](https://travis-ci.org/rainingclouds/keyword-parser.svg?branch=master)](https://travis-ci.org/rainingclouds/keyword-parser)
 
 This is supposed to parse a given code in the form of a string. We are trying to allow developers to write code in their 
 own spoken lanugage (eg. marathi, hindi, chinese etc). This should include keywords from that specific spoken 
