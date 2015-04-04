@@ -8,10 +8,15 @@ Now this parser is supposed to parse given code, for a given programming languag
 the original english keywords, to be given to compiler/interpreter.
 
 currently working example is for ruby.
-Should use - https://github.com/RainingClouds/rubyvernac-marathi or https://github.com/RainingClouds/rubyvernac-hindi - this has bunch of useful examples and a gem with translated aliases for method calls
+Should use - https://github.com/RainingClouds/rubyvernac-marathi or https://github.com/RainingClouds/rubyvernac-hindi - this has bunch of useful examples and a gem with translated aliases for method calls.
 
->usage - 
+Usage - 
 >keyword-parser test/test.rb ruby test/keywords.txt
 
+Installation -
+
+Install Go - https://golang.org/doc/install
+
+> go get github.com/rainingclouds/keyword-parser 
 
 *Very early stage*
