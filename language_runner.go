@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/RainingClouds/keyword-parser/processor"
+	"github.com/betacraft/keyword-parser/processor"
 	"io/ioutil"
 	"os"
 	"os/exec"
